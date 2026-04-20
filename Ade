@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, Adenike</title>
+    <style>
+        :root {
+            --primary: #ff4b5c;
+            --glass: rgba(255, 255, 255, 0.15);
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Floating Hearts Animation */
+        .bg-hearts {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Lock Screen */
+        #lock-screen {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.8s ease;
+        }
+
+        .login-box {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: center;
+            width: 80%;
+            max-width: 350px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255,255,255,0.9);
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        #main-content {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 2s ease;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .letter {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+            background: var(--glass);
+            padding: 25px;
+            border-radius: 15px;
+            font-style: italic;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--glass);
+            border-radius: 15px;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover { transform: translateY(-10px); }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #error-msg { color: #ff8e9a; font-size: 14px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-hearts" id="heart-bg"></div>
+
+    <div id="lock-screen">
+        <div class="login-box">
+            <h2>Hiiii ❤️</h2>
+            <p>Enter our secret key</p>
+            <input type="password" id="pass" placeholder="Your name...">
+            <button onclick="unlock()">Open My Heart</button>
+            <p id="error-msg"></p>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <header>
+            <h1>For You, Adenike</h1>
+            <div class="letter">
+                "Every photo here is a piece of a story I never want to end. Thank you for being my favorite chapter."
+            </div>
+        </header>
+
+        <div class="gallery">
+            <div class="card"><img src="LINK_1" alt="Memory"></div>
+            <div class="card"><img src="LINK_2" alt="Memory"></div>
+            <div class="card"><img src="LINK_3" alt="Memory"></div>
+            <div class="card"><img src="LINK_4" alt="Memory"></div>
+            <div class="card"><img src="LINK_5" alt="Memory"></div>
+            <div class="card"><img src="LINK_6" alt="Memory"></div>
+            <div class="card"><img src="LINK_7" alt="Memory"></div>
+            <div class="card"><img src="LINK_8" alt="Memory"></div>
+            <div class="card"><img src="LINK_9" alt="Memory"></div>
+            <div class="card"><img src="LINK_10" alt="Memory"></div>
+        </div>
+    </div>
+
+    <script>
+        function unlock() {
+            const pin = document.getElementById('pass').value;
+            if(pin.toLowerCase() === 'adenike') {
+                document.getElementById('lock-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('lock-screen').style.display = 'none';
+                    document.getElementById('main-content').style.display = 'block';
+                }, 800);
+            } else {
+                document.getElementById('error-msg').innerText = "Not quite... try again, my love.";
+            }
+        }
+
+        // Generate floating background elements
+        const bg = document.getElementById('heart-bg');
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.style.position = 'absolute';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = Math.random() * 100 + 'vh';
+            heart.style.opacity = Math.random() * 0.3;
+            heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            bg.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
